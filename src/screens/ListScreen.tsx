@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { ListScreenKey } from '../navigation/navigationKeys';
+import { ListScreenKey, WebviewKey } from '../navigation/navigationKeys';
 import { FeedElement, FeedResponse, getAllData } from '../services/getData';
 
 type Props = {
-    componentId : string
+    componentId: string
 }
 
 type State = {
@@ -15,7 +15,7 @@ type State = {
     error?: string
 };
 
-export default class ListScreen extends React.Component<any, any> {
+export default class ListScreen extends React.Component<Props, any> {
     isMounted?: boolean;
 
     constructor(props: any) {
@@ -23,11 +23,11 @@ export default class ListScreen extends React.Component<any, any> {
         this.state = {
             feedData: undefined
         }
-        
-        Navigation.events().bindComponent(this, ListScreenKey);
+
+        Navigation.events().bindComponent(this);
     }
 
-    
+
     componentDidMount(): void {
         getAllData()
             .then((res: FeedResponse) => {
@@ -58,9 +58,15 @@ export default class ListScreen extends React.Component<any, any> {
         }
 
         if (this.state.feedData == undefined) {
-            <SafeAreaView style={{ flex: 1 }}>
-                <ActivityIndicator color="blue"></ActivityIndicator>
-            </SafeAreaView>
+            return (
+                <SafeAreaView style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <ActivityIndicator color="blue"></ActivityIndicator>
+                </SafeAreaView>
+            )
         }
 
 
@@ -79,7 +85,14 @@ export default class ListScreen extends React.Component<any, any> {
                             <TouchableOpacity
                                 style={styles.listItem}
                                 onPress={() => {
-                                    console.log("Bana basıldı");
+                                    Navigation.push(this.props.componentId,{
+                                        component : {
+                                            name : WebviewKey,
+                                            passProps: {
+                                                url: item.url,
+                                            },
+                                        }
+                                    })
                                 }}>
                                 <Text>
                                     {item.title}

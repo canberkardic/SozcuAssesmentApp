@@ -4,10 +4,6 @@ import {TopbarKey} from './navigationKeys';
 
 export const setDefaultOptions = () =>
     Navigation.setDefaultOptions({
-        layout: {
-            orientation: ['portrait'],
-            direction: 'ltr',
-        },
         topBar: {
             visible: true,
             drawBehind: false,
@@ -17,19 +13,19 @@ export const setDefaultOptions = () =>
             borderHeight: 0,
             backButton: {
                 visible: true,
+                showTitle:false
             },
             title: {
                 fontSize: 25,
                 fontWeight: 'bold',
                 component : {
                     name : TopbarKey
-
                 },
                 alignment: 'center',
             },
         },
         statusBar: {
-            style: 'light',
+            style: 'dark',
             drawBehind: false,
             visible: true,
         },

@@ -9,18 +9,14 @@ import {name as appName} from './app.json';
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import HomeScreen from './src/screens/ListScreen';
+import ListScreen from './src/screens/ListScreen';
 
-const HomeScreen = (props) => {
-  return (
-    <View style={styles.root}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-};
 
-AppRegistry.registerComponent(appName, () => HomeScreen);
 
-Navigation.registerComponent('Home', () => HomeScreen);
+AppRegistry.registerComponent(appName, () => ListScreen);
+
+Navigation.registerComponent('Home', () => ListScreen);
 
 Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot({

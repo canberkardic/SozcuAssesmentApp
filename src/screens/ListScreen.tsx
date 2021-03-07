@@ -3,7 +3,12 @@ import React, { useEffect } from 'react';
 
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { ListScreenKey } from '../navigation/navigationKeys';
 import { FeedElement, FeedResponse, getAllData } from '../services/getData';
+
+type Props = {
+    componentId : string
+}
 
 type State = {
     data?: Array<FeedElement>;
@@ -18,8 +23,11 @@ export default class ListScreen extends React.Component<any, any> {
         this.state = {
             feedData: undefined
         }
+        
+        Navigation.events().bindComponent(this, ListScreenKey);
     }
 
+    
     componentDidMount(): void {
         getAllData()
             .then((res: FeedResponse) => {

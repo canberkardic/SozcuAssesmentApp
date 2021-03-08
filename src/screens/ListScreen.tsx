@@ -1,16 +1,11 @@
-import React, { useEffect } from 'react';
-
-
+import React from 'react';
 import {
-    View,
-    StyleSheet,
     SafeAreaView,
     ActivityIndicator,
-    FlatList
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ErrorComponent from '../components/ErrorComponent';
-import NewsItem from '../components/NewsItem';
+import NewsList from '../components/NewsList';
 import { TopbarKey } from '../navigation/navigationKeys';
 import { FeedElement, FeedResponse, getAllData } from '../services/getData';
 
@@ -105,30 +100,11 @@ export default class ListScreen extends React.Component<Props, State> {
 
 
         return (
-            <SafeAreaView style={styles.safeArea} >
-
-                <View style={styles.body}>
-                    <FlatList
-                        data={this.state.feedData}
-                        keyExtractor={(item, index) => (item.title + index).toString()}
-                        renderItem={({ item, index }) => (
-                            <NewsItem item={item} componentId={this.props.componentId} />
-                        )}
-                    />
-                </View>
-            </SafeAreaView>
+            <NewsList
+                componentId={this.props.componentId}
+                feedData={this.state.feedData}
+            />
         )
     }
 }
 
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
-    body: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
-})

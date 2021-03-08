@@ -2,15 +2,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
 import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { WebviewKey } from '../navigation/navigationKeys';
+import { TagsKey, WebviewKey } from '../navigation/navigationKeys';
 
 const NewsItem = (props) => {
 
     const { componentId, item } = props;
 
     const onTagPressed = (item) => {
-        AsyncStorage.getItem(item).then((data) => {
-            console.log(data);
+        Navigation.push(componentId, {
+            component: {
+                name: TagsKey,
+                passProps: {
+                    componentId: componentId,
+                    item : item,
+                },
+            }
         })
     };
 

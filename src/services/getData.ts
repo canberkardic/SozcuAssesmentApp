@@ -36,21 +36,6 @@ const handleTagData = (apiData: FeedElement[]) => {
         AsyncStorage.setItem(tag, JSON.stringify(tagsMap))
     })
 
-    
-    
-
-    /**
-     * AsyncStorage.getItem(t).then((data) => {
-                if(data){
-                    let tagsArray = [data,d];
-                    console.log(tagsArray);
-                    //AsyncStorage.setItem(t, JSON.stringify(tagsArray))
-                } else {
-                    AsyncStorage.setItem(t, JSON.stringify(d))
-                }
-            })
-     */
-
 }
 
 

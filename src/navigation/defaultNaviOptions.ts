@@ -1,5 +1,4 @@
 import { Navigation } from 'react-native-navigation';
-import { Topbar } from '../components/topbar';
 import {TopbarKey} from './navigationKeys';
 
 export const setDefaultOptions = () =>

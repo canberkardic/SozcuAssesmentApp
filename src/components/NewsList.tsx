@@ -1,11 +1,18 @@
 import * as React from 'react';
-import { View,  StyleSheet,  SafeAreaView, FlatList } from 'react-native';
+import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { FeedElement } from '../services/getData';
 import NewsItem from './NewsItem';
+
+
+type Props = {
+    componentId: string,
+    feedData: Array<FeedElement>
+}
 
 const NewsList = (props) => {
     const { componentId, feedData } = props;
 
-    
+
     return (
 
         <SafeAreaView style={styles.safeArea} >

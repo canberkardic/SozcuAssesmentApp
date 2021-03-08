@@ -3,11 +3,19 @@ import * as React from 'react';
 import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { TagsKey, WebviewKey } from '../navigation/navigationKeys';
+import { FeedElement } from '../services/getData';
 
-const NewsItem = (props) => {
+type Props = {
+    componentId : string,
+    item : FeedElement
+}
+
+
+const NewsItem = (props : Props) => {
 
     const { componentId, item } = props;
 
+    
     const onTagPressed = (item) => {
         Navigation.push(componentId, {
             component: {

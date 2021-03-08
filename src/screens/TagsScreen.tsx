@@ -4,8 +4,19 @@ import { Navigation } from 'react-native-navigation';
 import ErrorComponent from '../components/ErrorComponent';
 import NewsList from '../components/NewsList';
 import { TopbarKey } from '../navigation/navigationKeys';
+import { FeedElement } from '../services/getData';
 
-export default class TagsScreen extends React.Component<any, any> {
+type Props = {
+    componentId : string
+    item : string
+}
+
+type State = {
+    feedData?: Array<FeedElement>;
+    error?: boolean
+};
+
+export default class TagsScreen extends React.Component<Props, State> {
 
     constructor(props: any) {
         super(props);

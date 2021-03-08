@@ -1,16 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-
-
-/**
- * Keys
- */
-
 import { ListScreenKey, ShareKey, TagsKey, TopbarKey, WebviewKey } from './navigationKeys';
-
-/**
- * Screens
- */
-
 import ListScreen from '../screens/ListScreen';
 import TagsScreen from '../screens/TagsScreen';
 import { Topbar } from '../components/topbar';

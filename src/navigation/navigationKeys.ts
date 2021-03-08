@@ -4,3 +4,4 @@ export const TagsKey = "TagsKey"
 
 
 export const TopbarKey = "TopbarKey";
+export const ShareKey = "ShareKey";

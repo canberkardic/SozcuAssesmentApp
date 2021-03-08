@@ -22,7 +22,7 @@ AppRegistry.registerComponent(appName, () => ListScreen);
 registerScreens();
 
 Navigation.events().registerAppLaunchedListener(() => {
-    setDefaultOptions();
+    //setDefaultOptions();
     setRoot();
 });
 

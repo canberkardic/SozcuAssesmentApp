@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { ListScreenKey, WebviewKey } from '../navigation/navigationKeys';
+import { ListScreenKey, TopbarKey, WebviewKey } from '../navigation/navigationKeys';
 import { FeedElement, FeedResponse, getAllData } from '../services/getData';
 
 type Props = {
@@ -25,6 +25,36 @@ export default class ListScreen extends React.Component<Props, any> {
         }
 
         Navigation.events().bindComponent(this);
+    }
+
+    static get options() {
+        return {
+            topBar: {
+                visible: true,
+                drawBehind: false,
+                animate: false,
+                hideOnScroll: false,
+                noBorder: false,
+                borderHeight: 0,
+                backButton: {
+                    visible: true,
+                    showTitle:false
+                },
+                title: {
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                    component : {
+                        name : TopbarKey,
+                    },
+                    alignment: 'center',
+                },
+                rightButtons : [
+                    
+                ]
+            
+            },
+        }
+
     }
 
 
@@ -74,9 +104,6 @@ export default class ListScreen extends React.Component<Props, any> {
             <SafeAreaView style={styles.safeArea} >
 
                 <View style={styles.body}>
-                    <Text style={styles.heading}>
-                        List Items
-                        </Text>
                     <FlatList
                         style={styles.listStyle}
                         data={this.state.feedData}

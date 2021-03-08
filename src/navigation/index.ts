@@ -5,7 +5,7 @@ import { Navigation } from 'react-native-navigation';
  * Keys
  */
 
-import { ListScreenKey, TopbarKey, WebviewKey } from './navigationKeys';
+import { ListScreenKey, ShareKey, TopbarKey, WebviewKey } from './navigationKeys';
 
 /**
  * Screens
@@ -14,12 +14,14 @@ import { ListScreenKey, TopbarKey, WebviewKey } from './navigationKeys';
 import ListScreen from '../screens/ListScreen';
 import { Topbar } from '../components/topbar';
 import { WebviewScreen } from '../screens/WebviewScreen';
+import { ShareButton } from '../components/shareButton';
 
 export const registerScreens: Function = (): void => {
     Navigation.registerComponent(ListScreenKey, () => ListScreen);
     Navigation.registerComponent(WebviewKey, () => WebviewScreen);
-    
+
     Navigation.registerComponent(TopbarKey, () => Topbar);
+    Navigation.registerComponent(ShareKey, () => ShareButton);
 };
 
 

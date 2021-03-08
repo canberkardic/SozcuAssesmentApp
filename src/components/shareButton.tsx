@@ -11,17 +11,11 @@ export class ShareButton extends React.Component<any, any> {
         super(props);
     }
 
-    onPressed() {
-        console.log("Hello");
-    }
-
-    componentDidMount(){
-        console.log("MErhaba",this.props)
-    }
+    
 
     render(): JSX.Element {
         return (
-            <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, backgroundColor: 'black' }} onPress={this.props.onSharePressed}>
+            <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, backgroundColor: 'black' }}>
                 <Text>
                     Share
                 </Text>

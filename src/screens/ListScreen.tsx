@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 
 
-import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
+import {  View, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { ListScreenKey, TopbarKey, WebviewKey } from '../navigation/navigationKeys';
+import ErrorComponent from '../components/ErrorComponent';
+import NewsItem from '../components/NewsItem';
+import {  TopbarKey } from '../navigation/navigationKeys';
 import { FeedElement, FeedResponse, getAllData } from '../services/getData';
 
 type Props = {
@@ -11,12 +13,11 @@ type Props = {
 }
 
 type State = {
-    data?: Array<FeedElement>;
-    error?: string
+    feedData?: Array<FeedElement>;
+    error?: boolean
 };
 
-export default class ListScreen extends React.Component<Props, any> {
-    isMounted?: boolean;
+export default class ListScreen extends React.Component<Props, State> {
 
     constructor(props: any) {
         super(props);
@@ -38,20 +39,20 @@ export default class ListScreen extends React.Component<Props, any> {
                 borderHeight: 0,
                 backButton: {
                     visible: true,
-                    showTitle:false
+                    showTitle: false
                 },
                 title: {
                     fontSize: 25,
                     fontWeight: 'bold',
-                    component : {
-                        name : TopbarKey,
+                    component: {
+                        name: TopbarKey,
                     },
                     alignment: 'center',
                 },
-                rightButtons : [
-                    
+                rightButtons: [
+
                 ]
-            
+
             },
         }
 
@@ -70,6 +71,7 @@ export default class ListScreen extends React.Component<Props, any> {
             })
             .catch((result: FeedResponse) => {
                 this.setState({
+                    feedData : undefined,
                     error: result.success
                 })
             })
@@ -79,11 +81,7 @@ export default class ListScreen extends React.Component<Props, any> {
     render(): JSX.Element {
         if (this.state.error !== undefined) {
             return (
-                <View>
-                    <Text>
-                        Problem
-                    </Text>
-                </View>
+                <ErrorComponent />
             )
         }
 
@@ -94,7 +92,7 @@ export default class ListScreen extends React.Component<Props, any> {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
-                    <ActivityIndicator color="blue"></ActivityIndicator>
+                    <ActivityIndicator color="green"></ActivityIndicator>
                 </SafeAreaView>
             )
         }
@@ -105,26 +103,10 @@ export default class ListScreen extends React.Component<Props, any> {
 
                 <View style={styles.body}>
                     <FlatList
-                        style={styles.listStyle}
                         data={this.state.feedData}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item, index) => (item.title + index).toString() }
                         renderItem={({ item, index }) => (
-                            <TouchableOpacity
-                                style={styles.listItem}
-                                onPress={() => {
-                                    Navigation.push(this.props.componentId,{
-                                        component : {
-                                            name : WebviewKey,
-                                            passProps: {
-                                                url: item.url,
-                                            },
-                                        }
-                                    })
-                                }}>
-                                <Text>
-                                    {item.title}
-                                </Text>
-                            </TouchableOpacity>
+                            <NewsItem item={item} componentId={this.props.componentId} />
                         )}
                     />
                 </View>
@@ -143,19 +125,4 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white'
     },
-    heading: {
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    listItem: {
-        flex: 1,
-        borderBottomWidth: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginLeft: 20,
-        marginRight: 20,
-    },
-    listStyle: {
-        flex: 1,
-    }
 })

@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
 
 
-import {  View, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, TouchableOpacity, Dimensions } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    SafeAreaView,
+    ActivityIndicator,
+    FlatList
+} from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ErrorComponent from '../components/ErrorComponent';
 import NewsItem from '../components/NewsItem';
-import {  TopbarKey } from '../navigation/navigationKeys';
+import { TopbarKey } from '../navigation/navigationKeys';
 import { FeedElement, FeedResponse, getAllData } from '../services/getData';
 
 type Props = {
@@ -71,7 +77,7 @@ export default class ListScreen extends React.Component<Props, State> {
             })
             .catch((result: FeedResponse) => {
                 this.setState({
-                    feedData : undefined,
+                    feedData: undefined,
                     error: result.success
                 })
             })
@@ -104,7 +110,7 @@ export default class ListScreen extends React.Component<Props, State> {
                 <View style={styles.body}>
                     <FlatList
                         data={this.state.feedData}
-                        keyExtractor={(item, index) => (item.title + index).toString() }
+                        keyExtractor={(item, index) => (item.title + index).toString()}
                         renderItem={({ item, index }) => (
                             <NewsItem item={item} componentId={this.props.componentId} />
                         )}

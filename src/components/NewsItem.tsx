@@ -1,34 +1,36 @@
 import * as React from 'react';
-import {Image, View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { WebviewKey } from '../navigation/navigationKeys';
 
 const NewsItem = (props) => {
 
-    const {componentId, item} = props;
-    
+    const { componentId, item } = props;
     return (
-        <TouchableOpacity
-            style={styles.listItem}
-            onPress={() => {
-                Navigation.push(componentId, {
-                    component: {
-                        name: WebviewKey,
-                        passProps: {
-                            url: item.url,
-                        },
-                    }
-                })
-            }}>
-            <View style={styles.container}>
-                <Image source={{ uri: item.media }}
-                    style={styles.tinyImage} />
-                <Text style={styles.title}>{item.title}</Text>
-            </View>
+
+        <View style={styles.listItem}>
+            <TouchableOpacity
+                onPress={() => {
+                    Navigation.push(componentId, {
+                        component: {
+                            name: WebviewKey,
+                            passProps: {
+                                url: item.url,
+                            },
+                        }
+                    })
+                }}>
+                <View style={styles.container}>
+                    <Image source={{ uri: item.media }}
+                        style={styles.tinyImage} />
+                    <Text style={styles.title}>{item.title}</Text>
+                </View>
+            </TouchableOpacity>
+
             <View style={styles.tagsContainer}>
                 {
-                    item.tags?.map((t) =>
-                        <View>
+                    item.tags?.map((t, i) =>
+                        <View key={i}>
                             <TouchableOpacity
                                 style={styles.tagItem}>
                                 <Text>
@@ -39,8 +41,7 @@ const NewsItem = (props) => {
                     )
                 }
             </View>
-
-        </TouchableOpacity>
+        </View>
     )
 };
 export default NewsItem;
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ecf0f1',
         padding: 8,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     listItem: {
         flex: 1,
@@ -70,17 +71,19 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width * 0.7
     },
 
-    tagsContainer : {
-        flex :1, 
-        flexDirection : "row",
-        padding:5,
-        marginTop:10
+    tagsContainer: {
+        flex: 1,
+        flexDirection: "row",
+        padding: 5,
+        marginTop: 10,
+        flexWrap: 'wrap',
     },
-    tagItem : {
-        backgroundColor:'#d5f6d3',
-        marginLeft : 3,
-        padding:5,
-        borderRadius:5
+    tagItem: {
+        backgroundColor: '#d5f6d3',
+        marginLeft: 3,
+        padding: 2,
+        borderRadius: 5,
+        marginTop:2
     }
 })
 
